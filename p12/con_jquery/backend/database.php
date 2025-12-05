@@ -2,8 +2,8 @@
     $conexion = @mysqli_connect(
         'localhost',
         'root',
-        'bebecarlo',
-        'marketzone'
+        'seguro',
+        'resourcesbd'
     );
 
     /**

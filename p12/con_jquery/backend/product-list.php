@@ -5,7 +5,7 @@
     $data = array();
 
     // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
-    if ( $result = $conexion->query("SELECT * FROM productos WHERE eliminado = 0") ) {
+    if ( $result = $conexion->query("SELECT * FROM resourcesbd WHERE eliminado = 0") ) {
         // SE OBTIENEN LOS RESULTADOS
         $rows = $result->fetch_all(MYSQLI_ASSOC);
 

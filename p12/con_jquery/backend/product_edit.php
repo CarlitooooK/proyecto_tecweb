@@ -3,16 +3,16 @@ include('database.php');
 include('product-validation.php'); 
 
 $inputJSON = file_get_contents('php://input');
-$producto = json_decode($inputJSON, true);
+$recurso = json_decode($inputJSON, true);
 
 // Validación inicial de ID para edición
-$id = $producto['id'] ?? null;
+$id = $recurso['id'] ?? null;
 if (empty($id)) {
-    echo json_encode(["status" => "validation_error", "message" => "Error de edición: ID de producto no recibido."]);
+    echo json_encode(["status" => "validation_error", "message" => "Error de edición: ID de recurso no recibido."]);
     exit;
 }
 
-$errors = validateProductData($producto);
+$errors = validateProductData($recurso);
 
 // Si hay errores de validación, devolver la respuesta con los detalles
 if (!empty($errors)) {
@@ -25,13 +25,14 @@ if (!empty($errors)) {
 }
 
 // Obtener datos 
-$nombre = $producto['nombre'] ?? '';
-$marca = $producto['marca'] ?? '';
-$modelo = $producto['modelo'] ?? '';
-$precio = $producto['precio'] ?? 0.0;
-$unidades = $producto['unidades'] ?? 0;
-$detalles = $producto['detalles'] ?? '';
-$imagen = $producto['imagen'] ?? ''; 
+$nombre_recurso = $recurso['nombre_recusro'] ?? '';
+$autor = $recurso['autor'] ?? '';
+$departamento = $recurso['departamento'] ?? '';
+$empresa = $recurso['empresa'] ?? '';
+$fecha_creacion = $recurso['fecha_creacion'] ?? '0000-00-00';
+$descripcion = $recurso['descripcion'] ?? '';
+$archivo = $recurso['archivo'] ?? ''; 
+$logo = $recurso['logo'] ?? ''; 
 
 $DEFAULT_IMAGE = 'img/default.png';
 
@@ -41,23 +42,24 @@ if (empty($imagen)) {
 }
 
 $id_sql = mysqli_real_escape_string($conexion, $id);
-$nombre_sql = mysqli_real_escape_string($conexion, $nombre);
-$marca_sql = mysqli_real_escape_string($conexion, $marca);
-$modelo_sql = mysqli_real_escape_string($conexion, $modelo);
-$detalles_sql = mysqli_real_escape_string($conexion, $detalles);
-$imagen_sql = mysqli_real_escape_string($conexion, $imagen);
-$precio_float = floatval($precio);
-$unidades_int = intval($unidades);
+$nombre_recurso_sql = mysqli_real_escape_string($conexion, $nombre_recurso);
+$autor_sql = mysqli_real_escape_string($conexion, $autor);
+$departamento_ql = mysqli_real_escape_string($conexion, $departamento);
+$empresa_sql = mysqli_real_escape_string($conexion, $empresa);
+$fecha_creacion_sql = mysqli_real_escape_string($conexion, $fecha_creacion);
+$descripcion_sql = mysqli_real_escape_string($conexion, $descripcion);
+$archivo_sql = mysqli_real_escape_string($conexion, $archivo);
 
 
-$query = "UPDATE productos SET
-            nombre = '$nombre_sql',
-            marca = '$marca_sql',
-            modelo = '$modelo_sql',
-            precio = $precio_float,
-            unidades = $unidades_int,
-            detalles = '$detalles_sql',
-            imagen = '$imagen_sql'
+$query = "UPDATE resourcesbd SET
+            nombre_recurso = '$nombre_recurso_sql',
+            autor = '$autor_sql',
+            departamento = '$departamento_sql',
+            empresa = $empresa_sql,
+            fecha_creacion = $fecha_creacion_sql,
+            descripcion = '$descripcion_sql',
+            archivo = '$archivo_sql'
+            logo = '$imagen';
           WHERE id = '$id_sql'";
 
 $result = mysqli_query($conexion, $query);
@@ -65,7 +67,7 @@ $result = mysqli_query($conexion, $query);
 // Devolver respuesta según el resultado de la consulta
 if ($result) {
     if (mysqli_affected_rows($conexion) > 0) {
-        echo json_encode(["status" => "success", "message" => "Producto actualizado correctamente."]);
+        echo json_encode(["status" => "success", "message" => "Recurso actualizado correctamente."]);
     } else {
         echo json_encode(["status" => "info", "message" => "Error no se realizaron cambios."]);
     }
