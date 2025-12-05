@@ -3,14 +3,14 @@
     include_once __DIR__.'/product-validation.php'; // Incluimos la función de validación
 
     // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
-    $producto = file_get_contents('php://input');
+    $recurso = file_get_contents('php://input');
     $data = array(
         'status'  => 'error',
-        'message' => 'Ya existe un producto con ese nombre'
+        'message' => 'Ya existe un recurso con ese nombre'
     );
-    if(!empty($producto)) {
+    if(!empty($recurso)) {
         // SE TRANSFORMA EL STRING DEL JSON A ARREGLO ASOCIATIVO para la validación (se agrega 'true')
-        $jsonARR = json_decode($producto, true);
+        $jsonARR = json_decode($recurso, true);
         
         $errors = validateProductData($jsonARR);
 
@@ -27,18 +27,18 @@
         }
 
         // Si no hay errores, se transforma de nuevo a objeto (o se usa el arreglo, pero mantendré tu estructura)
-        $jsonOBJ = json_decode($producto);
+        $jsonOBJ = json_decode($recurso);
         
         // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
-        $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
+        $sql = "SELECT * FROM resourcesbd WHERE nombre_recurso = '{$jsonOBJ->nombre_recurso}' AND eliminado = 0";
 	    $result = $conexion->query($sql);
         
         if ($result->num_rows == 0) {
             $conexion->set_charset("utf8");
-            $sql = "INSERT INTO productos VALUES (null, '{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
+            $sql = "INSERT INTO resourcesbd VALUES (null, '{$jsonOBJ->nombre_recurso}', '{$jsonOBJ->autor}', '{$jsonOBJ->departamento}', '{$jsonOBJ->empresa}', {$jsonOBJ->fecha_creacion}, '{$jsonOBJ->descripcion}', {$jsonOBJ->archivo}, 0, '{$jsonOBJ->logo}')";
             if($conexion->query($sql)){
                 $data['status'] =  "success";
-                $data['message'] =  "Producto agregado";
+                $data['message'] =  "Recurso agregado";
             } else {
                 $data['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($conexion);
             }

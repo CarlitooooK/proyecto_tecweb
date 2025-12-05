@@ -1,24 +1,25 @@
 <?php
-function validateProductData(array $producto): array {
+function validateProductData(array $recurso): array {
     
-    $nombre = trim($producto['nombre'] ?? '');
-    $marca = trim($producto['marca'] ?? '');
-    $modelo = trim($producto['modelo'] ?? '');
-    $precio = $producto['precio'] ?? 0.0;
-    $unidades = $producto['unidades'] ?? 0;
-    $detalles = trim($producto['detalles'] ?? '');
-    $imagen = trim($producto['imagen'] ?? ''); 
+    $nombre_recurso = trim($recurso['nombre_recurso'] ?? '');
+    $autor = trim($recurso['autor'] ?? '');
+    $departamento = trim($recurso['departamento'] ?? '');
+    $empresa = $recurso['empresa'] ?? 0.0;
+    $fecha_creacion = $recurso['fecha_creacion'] ?? 0;
+    $descripcion = trim($recurso['descripcion'] ?? '');
+    $archivo = trim($recurso['archivo'] ?? '');
+    $logo = trim($recurso['logo'] ?? ''); 
 
     $errors = [];
 
     // 1. Nombre (Requerido, máx 100)
-    if (empty($nombre) || strlen($nombre) > 100) {
-        $errors[] = "Nombre: requerido y máximo 100 caracteres.";
+    if (empty($nombre_recurso) || strlen($nombre_recurso) > 250) {
+        $errors[] = "Nombre del recurso: requerido y máximo 250 caracteres.";
     }
 
     // 2. Marca (Requerida)
-    if (empty($marca) || $marca === 'NA') {
-        $errors[] = "Marca: selecciona una marca.";
+    if (empty($autor) || strlen($autor) > 150) {
+        $errors[] = "Autor: requerido y máximo 100 caracteres.";
     }
 
     // 3. Modelo (Requerido, alfanumérico, máx 25)
