@@ -1,6 +1,8 @@
 <?php
     include_once __DIR__.'/database.php';
     include_once __DIR__.'/resource-validation.php'; // Incluimos la función de validación
+    include_once __DIR__.'/filetype-icon.php';
+
 
     // SE OBTIENE LA INFORMACIÓN DEL RECURSO ENVIADA POR EL CLIENTE
     $recurso = file_get_contents('php://input');
@@ -28,6 +30,21 @@
 
         // Si no hay errores, se transforma de nuevo a objeto (o se usa el arreglo, pero mantendré tu estructura)
         $jsonOBJ = json_decode($recurso);
+
+        // Logo automático
+        $jsonOBJ->logo = assignLogoByExtension($archivo); //////////////////
+
+        // Validar nombre duplicado
+        $sqlCheck = "SELECT id FROM resourcesbd WHERE nombre_recurso='$nombre' AND eliminado=0";
+        $result = $conexion->query($sqlCheck);
+
+        if ($result->num_rows > 0) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Ya existe un recurso con ese nombre"
+        ]);
+        exit;
+        }
         
         // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
         $sql = "SELECT * FROM resourcesbd WHERE nombre_recurso = '{$jsonOBJ->nombre_recurso}' AND eliminado = 0";

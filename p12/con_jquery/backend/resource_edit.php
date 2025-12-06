@@ -1,6 +1,7 @@
 <?php
 include('database.php'); 
 include('resource-validation.php'); 
+include_once __DIR__.'/filetype-icon.php';
 
 $inputJSON = file_get_contents('php://input');
 $recurso = json_decode($inputJSON, true);
@@ -32,14 +33,9 @@ $empresa = $recurso['empresa'] ?? '';
 $fecha_creacion = $recurso['fecha_creacion'] ?? '0000-00-00';
 $descripcion = $recurso['descripcion'] ?? '';
 $archivo = $recurso['archivo'] ?? ''; 
-$logo = $recurso['logo'] ?? ''; 
 
-$DEFAULT_IMAGE = 'img/default.png';
-
-// Imagen (Aplicar default si vacío, se hace aquí para evitar que entre en validación de errores)
-if (empty($imagen)) {
-    $imagen = $DEFAULT_IMAGE;
-}
+// Logo automático
+$logo = assignLogoByExtension($archivo);
 
 $id_sql = mysqli_real_escape_string($conexion, $id);
 $nombre_recurso_sql = mysqli_real_escape_string($conexion, $nombre_recurso);

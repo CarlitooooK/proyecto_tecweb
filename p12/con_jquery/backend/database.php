@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json');
+
     $conexion = @mysqli_connect(
         'localhost',
         'root',
@@ -18,5 +20,6 @@
         ]);
             exit;
     }
-   
+    
+$conexion->set_charset("utf8");
 ?>
