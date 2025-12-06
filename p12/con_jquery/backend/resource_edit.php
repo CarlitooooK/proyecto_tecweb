@@ -1,6 +1,6 @@
 <?php
 include('database.php'); 
-include('product-validation.php'); 
+include('resource-validation.php'); 
 
 $inputJSON = file_get_contents('php://input');
 $recurso = json_decode($inputJSON, true);

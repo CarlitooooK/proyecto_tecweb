@@ -1,8 +1,8 @@
 <?php
     include_once __DIR__.'/database.php';
-    include_once __DIR__.'/product-validation.php'; // Incluimos la función de validación
+    include_once __DIR__.'/resource-validation.php'; // Incluimos la función de validación
 
-    // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
+    // SE OBTIENE LA INFORMACIÓN DEL RECURSO ENVIADA POR EL CLIENTE
     $recurso = file_get_contents('php://input');
     $data = array(
         'status'  => 'error',
