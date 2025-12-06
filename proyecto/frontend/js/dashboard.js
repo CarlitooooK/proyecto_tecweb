@@ -4,7 +4,7 @@ $(document).ready(function () {
     // CARGAR LISTA DE RECURSOS
     function loadResources() {
         $.ajax({
-            url: "../backend/resource-list.php",
+            url: "",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -76,8 +76,8 @@ $(document).ready(function () {
         if (file) formData.append("archivo", file);
 
         const url = $("#resourceId").val()
-            ? "../backend/resource-edit.php"
-            : "../backend/resource-add.php";
+            ? ""
+            : "";
 
         $.ajax({
             url: url,
@@ -101,7 +101,7 @@ $(document).ready(function () {
         const id = $(this).data("id");
 
         $.ajax({
-            url: "../backend/resource-get.php",
+            url: "",
             type: "GET",
             data: { id },
             dataType: "json",
@@ -130,7 +130,7 @@ $(document).ready(function () {
 
         if (confirm("¿Seguro que deseas eliminar este recurso?")) {
             $.ajax({
-                url: "../backend/resource-delete.php",
+                url: "",
                 type: "POST",
                 data: { id },
                 success: function () {

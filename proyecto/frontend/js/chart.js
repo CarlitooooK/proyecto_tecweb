@@ -13,7 +13,7 @@ $(document).ready(function () {
     // ============================
     function loadTipos() {
         $.ajax({
-            url: "../backend/stats-tipos.php",
+            url: "",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -37,7 +37,7 @@ $(document).ready(function () {
     // ============================
     function loadDias() {
         $.ajax({
-            url: "../backend/stats-dias.php",
+            url: "",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -61,7 +61,7 @@ $(document).ready(function () {
     // ============================
     function loadHoras() {
         $.ajax({
-            url: "../backend/stats-horas.php",
+            url: "",
             type: "GET",
             dataType: "json",
             success: function (data) {

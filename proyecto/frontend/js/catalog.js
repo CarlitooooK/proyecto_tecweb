@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 function loadCatalogResources() {
     $.ajax({
-        url: '../api/catalog-list.php',
+        url: '',
         type: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -196,13 +196,13 @@ function searchCatalog() {
 function downloadCatalogResource(id) {
     // Registrar descarga
     $.ajax({
-        url: '../api/register-download.php',
+        url: '',
         type: 'POST',
         data: { resource_id: id }
     });
     
     // Descargar archivo
-    window.open(`../api/resource-download.php?id=${id}`, '_blank');
+    window.open(`?id=${id}`, '_blank');
 }
 
 function updateCatalogStats() {
