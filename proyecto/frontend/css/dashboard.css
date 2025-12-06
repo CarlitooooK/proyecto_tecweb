@@ -1,0 +1,65 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* NAVBAR */
+.dashboard-navbar {
+    background-color: #212529 !important;
+    padding: 0.6rem;
+}
+
+.dashboard-navbar .navbar-brand,
+.dashboard-navbar .nav-link,
+.dashboard-navbar .user-badge,
+.dashboard-navbar i {
+    color: #fff !important;
+}
+
+/* SIDEBAR */
+.sidebar {
+    min-height: 100vh;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar .nav-link {
+    color: #333;
+}
+
+.sidebar-heading {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+/* CARD */
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+/* TABLAS */
+.table th {
+    font-weight: 600;
+}
+
+/* FILE TYPE BADGES */
+.badge-tipo {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.badge-pdf { background: #ffe5e5; color: #e74c3c; }
+.badge-zip { background: #e5f2ff; color: #3498db; }
+.badge-json { background: #fff2d9; color: #f39c12; }
+.badge-xml { background: #e8fced; color: #27ae60; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+        margin-bottom: 20px;
+    }
+    .table-responsive { font-size: 0.9rem; }
+}
