@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# EXCEPCIÓN: si es un archivo físico, no reescribir
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Si NO es un archivo real, entonces sí usar el router
+RewriteRule ^api/(.*)$ api/index.php/$1 [L,QSA]
+
+# Prevenir acceso a archivos sensibles
+<FilesMatch "(\.env|composer\.json|composer\.lock)$">
+    Require all denied
+</FilesMatch>

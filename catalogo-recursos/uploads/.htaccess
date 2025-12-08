@@ -1,0 +1,4 @@
+# Permitir descargas pero prevenir ejecución de scripts
+<FilesMatch "\.(php|phtml|php3|php4|php5|phps)$">
+    Require all denied
+</FilesMatch>
